@@ -1,10 +1,7 @@
 package com.educandoweb.springprimario.controllers;
 
 import com.educandoweb.springprimario.entities.Order;
-import com.educandoweb.springprimario.entities.User;
-import com.educandoweb.springprimario.repositories.OrderRepository;
-import com.educandoweb.springprimario.repositories.UserRepository;
-
+import com.educandoweb.springprimario.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,34 +12,20 @@ import java.util.List;
 public class OrderController {
 
     @Autowired
-    private OrderRepository orderRepository;
+    private OrderService service;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    // 🔍 BUSCAR TODOS
     @GetMapping
     public List<Order> findAll() {
-        return orderRepository.findAll();
+        return service.findAll();
     }
 
-    // 🔍 BUSCAR POR ID
     @GetMapping("/{id}")
     public Order findById(@PathVariable Long id) {
-        return orderRepository.findById(id).orElse(null);
+        return service.findById(id);
     }
 
-    // 🚀 CRIAR ORDER (AGORA CORRETO)
     @PostMapping
     public Order insert(@RequestBody Order order) {
-
-        Long userId = order.getClient().getId();
-
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User não encontrado"));
-
-        order.setClient(user);
-
-        return orderRepository.save(order);
+        return service.insert(order);
     }
 }
