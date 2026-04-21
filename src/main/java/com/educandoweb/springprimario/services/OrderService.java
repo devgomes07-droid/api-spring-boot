@@ -33,7 +33,7 @@ public class OrderService {
                 .orElseThrow(() -> new RuntimeException("User não encontrado"));
 
         order.setClient(user);
-        order.setMoment(Instant.now()); // 🔥 regra de negócio aqui
+        order.setMoment(Instant.now());
 
         return orderRepository.save(order);
     }
