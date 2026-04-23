@@ -2,10 +2,12 @@ package com.educandoweb.springprimario.config;
 
 import com.educandoweb.springprimario.entities.Category;
 import com.educandoweb.springprimario.entities.Order;
+import com.educandoweb.springprimario.entities.Product;
 import com.educandoweb.springprimario.entities.User;
 import com.educandoweb.springprimario.entities.enums.OrderStatus;
 import com.educandoweb.springprimario.repositories.CategoryRepository;
 import com.educandoweb.springprimario.repositories.OrderRepository;
+import com.educandoweb.springprimario.repositories.ProductRepository;
 import com.educandoweb.springprimario.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -23,6 +25,9 @@ public class TestConfig implements CommandLineRunner {
     private CategoryRepository categoryRepository;
 
     @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -37,6 +42,27 @@ public class TestConfig implements CommandLineRunner {
         Category cat3 = new Category(null, "Computers");
 
         categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+
+        // 🔹 PRODUCTS
+        Product p1 = new Product(null, "The Lord of the Rings", "Lorem ipsum", 90.5, "");
+        Product p2 = new Product(null, "Smart TV", "Nulla eu imperdiet", 2190.0, "");
+        Product p3 = new Product(null, "Macbook Pro", "Nam eleifend", 1250.0, "");
+        Product p4 = new Product(null, "PC Gamer", "Donec aliquet", 1200.0, "");
+        Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla", 100.99, "");
+
+        // 🔥 RELACIONAMENTO MANY TO MANY
+        p1.getCategories().add(cat2);
+
+        p2.getCategories().add(cat1);
+        p2.getCategories().add(cat3);
+
+        p3.getCategories().add(cat3);
+
+        p4.getCategories().add(cat3);
+
+        p5.getCategories().add(cat2);
+
+        productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 
         // 🔹 USERS
         User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
