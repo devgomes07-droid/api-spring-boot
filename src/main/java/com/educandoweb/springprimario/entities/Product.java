@@ -1,6 +1,8 @@
 package com.educandoweb.springprimario.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -27,6 +29,10 @@ public class Product implements Serializable {
     )
     private Set<Category> categories = new HashSet<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> items = new HashSet<>();
+
     public Product() {}
 
     public Product(Long id, String name, String description, Double price, String imgUrl) {
@@ -43,6 +49,7 @@ public class Product implements Serializable {
     public Double getPrice() { return price; }
     public String getImgUrl() { return imgUrl; }
     public Set<Category> getCategories() { return categories; }
+    public Set<OrderItem> getItems() { return items; }
 
     public void setId(Long id) { this.id = id; }
     public void setName(String name) { this.name = name; }

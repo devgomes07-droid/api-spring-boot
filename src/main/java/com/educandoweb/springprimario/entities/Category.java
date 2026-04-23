@@ -30,6 +30,7 @@ public class Category implements Serializable {
 
     public Long getId() { return id; }
     public String getName() { return name; }
+
     public Set<Product> getProducts() { return products; }
 
     public void setId(Long id) { this.id = id; }
