@@ -1,5 +1,6 @@
 package com.educandoweb.springprimario.entities;
 
+
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -19,7 +20,6 @@ public class OrderItemPK implements Serializable {
 
     public OrderItemPK() {}
 
-    // ❗ NÃO cria OrderItem aqui
     public OrderItemPK(Order order, Product product) {
         this.order = order;
         this.product = product;

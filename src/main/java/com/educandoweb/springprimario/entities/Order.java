@@ -2,7 +2,6 @@ package com.educandoweb.springprimario.entities;
 
 import com.educandoweb.springprimario.entities.enums.OrderStatus;
 import jakarta.persistence.*;
-
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
@@ -12,6 +11,17 @@ import java.util.Set;
 @Entity
 @Table(name = "tb_order")
 public class Order implements Serializable {
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Payment payment;
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +35,6 @@ public class Order implements Serializable {
     @JoinColumn(name = "client_id")
     private User client;
 
-    // 🔥 AGORA SIM, DENTRO DA CLASSE
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items = new HashSet<>();
 

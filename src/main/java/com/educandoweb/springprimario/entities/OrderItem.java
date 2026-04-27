@@ -28,7 +28,7 @@ public class OrderItem implements Serializable {
         return id.getOrder();
     }
 
-    @JsonIgnore // 🔥 ESSA LINHA RESOLVE O ERRO
+    @JsonIgnore
     public Product getProduct() {
         return id.getProduct();
     }
