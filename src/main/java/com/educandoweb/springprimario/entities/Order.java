@@ -12,17 +12,6 @@ import java.util.Set;
 @Table(name = "tb_order")
 public class Order implements Serializable {
 
-    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
-    private Payment payment;
-
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,6 +26,10 @@ public class Order implements Serializable {
 
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items = new HashSet<>();
+
+    // 🔥 ONE TO ONE (PAYMENT)
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Payment payment;
 
     public Order() {}
 
@@ -53,6 +46,9 @@ public class Order implements Serializable {
 
     public Set<OrderItem> getItems() { return items; }
 
+    public Payment getPayment() { return payment; }
+    public void setPayment(Payment payment) { this.payment = payment; }
+
     public OrderStatus getOrderStatus() {
         return OrderStatus.valueOf(orderStatus);
     }
@@ -65,6 +61,15 @@ public class Order implements Serializable {
         if (orderStatus != null) {
             this.orderStatus = orderStatus.getCode();
         }
+    }
+
+    // 🔥 TOTAL DO PEDIDO
+    public Double getTotal() {
+        double sum = 0.0;
+        for (OrderItem x : items) {
+            sum += x.getSubTotal();
+        }
+        return sum;
     }
 
     @Override

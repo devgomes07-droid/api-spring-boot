@@ -13,8 +13,8 @@ public class Product implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
+
     private String name;
     private String description;
     private Double price;
@@ -28,6 +28,7 @@ public class Product implements Serializable {
     )
     private Set<Category> categories = new HashSet<>();
 
+    // 🔥 EVITA LOOP
     @JsonIgnore
     @OneToMany(mappedBy = "id.product")
     private Set<OrderItem> items = new HashSet<>();
@@ -42,22 +43,16 @@ public class Product implements Serializable {
         this.imgUrl = imgUrl;
     }
 
-    // 🔹 GETTERS
     public Long getId() { return id; }
-
     public String getName() { return name; }
-
     public String getDescription() { return description; }
-
     public Double getPrice() { return price; }
-
     public String getImgUrl() { return imgUrl; }
 
     public Set<Category> getCategories() { return categories; }
-
     public Set<OrderItem> getItems() { return items; }
 
-    // 🔥 AULA 286
+    // 🔥 RELAÇÃO COM ORDERS
     public Set<Order> getOrders() {
         Set<Order> set = new HashSet<>();
         for (OrderItem x : items) {
@@ -66,18 +61,12 @@ public class Product implements Serializable {
         return set;
     }
 
-    // 🔹 SETTERS
     public void setId(Long id) { this.id = id; }
-
     public void setName(String name) { this.name = name; }
-
     public void setDescription(String description) { this.description = description; }
-
     public void setPrice(Double price) { this.price = price; }
-
     public void setImgUrl(String imgUrl) { this.imgUrl = imgUrl; }
 
-    // 🔹 EQUALS & HASHCODE
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

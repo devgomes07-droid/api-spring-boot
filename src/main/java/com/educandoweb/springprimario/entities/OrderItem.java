@@ -24,11 +24,12 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
+    // 🔥 EVITA LOOP INFINITO
+    @JsonIgnore
     public Order getOrder() {
         return id.getOrder();
     }
 
-    @JsonIgnore
     public Product getProduct() {
         return id.getProduct();
     }
@@ -38,6 +39,11 @@ public class OrderItem implements Serializable {
 
     public void setQuantity(Integer quantity) { this.quantity = quantity; }
     public void setPrice(Double price) { this.price = price; }
+
+    // 🔥 SUBTOTAL
+    public Double getSubTotal() {
+        return price * quantity;
+    }
 
     @Override
     public boolean equals(Object o) {
