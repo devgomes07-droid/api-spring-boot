@@ -28,7 +28,6 @@ public class Product implements Serializable {
     )
     private Set<Category> categories = new HashSet<>();
 
-    // 🔥 EVITA LOOP
     @JsonIgnore
     @OneToMany(mappedBy = "id.product")
     private Set<OrderItem> items = new HashSet<>();
@@ -52,7 +51,8 @@ public class Product implements Serializable {
     public Set<Category> getCategories() { return categories; }
     public Set<OrderItem> getItems() { return items; }
 
-    // 🔥 RELAÇÃO COM ORDERS
+    //EVITA LOOP
+    @JsonIgnore
     public Set<Order> getOrders() {
         Set<Order> set = new HashSet<>();
         for (OrderItem x : items) {

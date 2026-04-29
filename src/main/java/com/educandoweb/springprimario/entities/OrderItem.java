@@ -24,8 +24,7 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
-    // 🔥 EVITA LOOP INFINITO
-    @JsonIgnore
+    @JsonIgnore // 🔥 EVITA LOOP
     public Order getOrder() {
         return id.getOrder();
     }
