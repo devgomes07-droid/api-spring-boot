@@ -63,7 +63,6 @@ public class Order implements Serializable {
             this.orderStatus = orderStatus.getCode();
         }
     }
-
     // 🔥 TOTAL
     public Double getTotal() {
         double sum = 0.0;
